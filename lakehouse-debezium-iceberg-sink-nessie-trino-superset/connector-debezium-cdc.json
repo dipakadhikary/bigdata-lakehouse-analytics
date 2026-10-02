@@ -1,0 +1,31 @@
+{
+  "name": "connector-debezium-cdc",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "debezium",
+    "database.password": "debezium",
+    "database.dbname": "analytics",
+
+    "topic.prefix": "analytics",
+
+    "plugin.name": "pgoutput",
+
+    "schema.include.list":"public",
+
+    "snapshot.mode": "initial",
+	
+    "key.converter":"org.apache.kafka.connect.json.JsonConverter",
+    "value.converter":"org.apache.kafka.connect.json.JsonConverter",
+
+    "key.converter.schemas.enable":"false",
+    "value.converter.schemas.enable":"false",
+  
+    "transforms": "unwrap",
+    "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+    "transforms.unwrap.drop.tombstones": "false",
+    "transforms.unwrap.delete.handling.mode": "rewrite"	
+  }
+}

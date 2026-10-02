@@ -1,0 +1,64 @@
+services:
+  analytics-with-hadoop-spark:
+    image: analytics-with-hadoop-spark
+    container_name: analytics-with-hadoop-spark
+    hostname: localhost
+
+    ports:
+      # Hadoop NameNode UI
+      - "7070:9870"
+      # YARN ResourceManager UI
+      - "7171:8088"
+
+      # MySQL
+      - "7373:3306"
+
+      # Spark Application UI
+      - "8082:4040"
+
+      # Spark Master communication
+      - "7272:7077"
+      # Spark Master UI
+      - "8080:8080"
+
+      # Spark Worker UI
+      - "3000:8081"
+    volumes:
+      # Host:Container
+      - .:/data
+    stdin_open: true
+    tty: true
+
+    command: >
+      /bin/bash -c "/bootstrap.sh >/tmp/bootstrap.log"
+  kafka:
+    image: apache/kafka:4.1.0
+    container_name: kafka
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    environment:
+      # --- KRaft mode ---
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_NODE_ID: 1
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      # --- Listeners ---
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://10.0.53.103:9092
+      # ^ Change `localhost` to your host IP (e.g. 192.168.56.110) if accessing outside Docker
+
+      # --- Log settings ---
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_NUM_PARTITIONS: 3
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    # restart: unless-stopped
+volumes:
+  kafka_data:

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smart Data Platform — Client Presentation</title>
+  <style>
+    @page { size: A4 portrait; margin: 10mm 11mm; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", Calibri, Arial, sans-serif;
+      color: #1e293b;
+      font-size: 8.7pt;
+      line-height: 1.38;
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── Cover (compact, content-rich) ── */
+    .cover {
+      height: 277mm;
+      background: linear-gradient(160deg, #0a3d6b 0%, #0f4c81 40%, #1565a8 100%);
+      color: #fff;
+      padding: 14mm 14mm 10mm;
+      page-break-after: always;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+    .cover-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .cover-logo { font-size: 8pt; letter-spacing: 2.5px; text-transform: uppercase; opacity: .75; }
+    .cover-badge {
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25);
+      border-radius: 4px; padding: 3px 10px; font-size: 7.5pt;
+    }
+    .cover-main { display: flex; flex-direction: column; justify-content: center; padding: 8mm 0; }
+    .cover h1 { font-size: 30pt; font-weight: 700; line-height: 1.1; margin-bottom: 8px; }
+    .cover .sub { font-size: 13pt; font-weight: 400; opacity: .9; margin-bottom: 14px; }
+    .cover .tagline { font-size: 10pt; opacity: .85; max-width: 130mm; line-height: 1.55; margin-bottom: 18px; }
+    .cover-highlights {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 170mm;
+    }
+    .cover-hl {
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      border-radius: 5px; padding: 8px 10px;
+    }
+    .cover-hl strong { display: block; font-size: 8.5pt; margin-bottom: 2px; }
+    .cover-hl span { font-size: 7.5pt; opacity: .8; }
+    .cover-bottom {
+      border-top: 1px solid rgba(255,255,255,.2); padding-top: 8px;
+      display: flex; justify-content: space-between; font-size: 7.5pt; opacity: .7;
+    }
+
+    /* ── Content pages ── */
+    .page { padding: 0; page-break-after: always; }
+    .page:last-child { page-break-after: auto; }
+
+    .page-header {
+      background: #0f4c81; color: #fff; padding: 5px 10px;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 8px; border-radius: 3px;
+    }
+    .page-header .title { font-size: 9pt; font-weight: 700; }
+    .page-header .pg { font-size: 7.5pt; opacity: .75; }
+
+    h2 {
+      font-size: 10pt; color: #0f4c81; font-weight: 700;
+      border-bottom: 1.5px solid #0f4c81; padding-bottom: 3px;
+      margin: 9px 0 5px;
+    }
+    h2:first-child { margin-top: 0; }
+    h3 { font-size: 8.5pt; color: #334155; font-weight: 700; margin: 7px 0 4px; }
+    p { margin-bottom: 5px; color: #475569; }
+
+    .lead {
+      background: #eff6ff; border-left: 3px solid #0f4c81;
+      padding: 6px 9px; margin: 5px 0 8px; font-size: 8.7pt; color: #1e293b;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+
+    .card {
+      border: 1px solid #e2e8f0; border-radius: 4px;
+      padding: 6px 8px; background: #f8fafc;
+    }
+    .card h4 { font-size: 8pt; color: #0f4c81; font-weight: 700; margin-bottom: 3px; }
+    .card p { font-size: 7.8pt; color: #64748b; margin: 0; }
+
+    .benefit {
+      border: 1px solid #dbeafe; border-left: 3px solid #2563eb;
+      border-radius: 3px; padding: 5px 7px; background: #fff;
+    }
+    .benefit strong { display: block; font-size: 8pt; color: #1e40af; }
+    .benefit span { font-size: 7.5pt; color: #475569; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 7.8pt; margin: 4px 0 7px; }
+    th { background: #0f4c81; color: #fff; text-align: left; padding: 4px 6px; font-weight: 600; }
+    td { border-bottom: 1px solid #e2e8f0; padding: 3.5px 6px; color: #334155; vertical-align: top; }
+    tr:nth-child(even) td { background: #f8fafc; }
+
+    .pipeline {
+      display: flex; align-items: stretch; gap: 2px; margin: 6px 0 8px;
+    }
+    .pipe-step {
+      flex: 1; background: #0f4c81; color: #fff; text-align: center;
+      padding: 5px 2px; border-radius: 3px; font-size: 7pt; font-weight: 600;
+    }
+    .pipe-step small { display: block; font-weight: 400; font-size: 6.5pt; opacity: .75; margin-top: 1px; }
+    .pipe-arrow { color: #94a3b8; font-weight: 700; font-size: 9pt; display: flex; align-items: center; }
+
+    .arch-diagram {
+      background: #1e293b; color: #cbd5e1; font-family: Consolas, "Courier New", monospace;
+      font-size: 6.8pt; line-height: 1.45; padding: 8px 10px;
+      border-radius: 4px; margin: 5px 0 8px; white-space: pre;
+    }
+
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin: 5px 0 8px; }
+    .compare-bad { border: 1px solid #fecaca; background: #fef2f2; border-radius: 4px; padding: 7px; }
+    .compare-good { border: 1px solid #bbf7d0; background: #f0fdf4; border-radius: 4px; padding: 7px; }
+    .compare h4 { font-size: 8pt; margin-bottom: 4px; }
+    .compare-bad h4 { color: #b91c1c; }
+    .compare-good h4 { color: #15803d; }
+    .compare ul { padding-left: 14px; }
+    .compare li { font-size: 7.5pt; color: #475569; margin-bottom: 1px; }
+
+    .phase-row { display: flex; gap: 7px; margin-bottom: 5px; align-items: flex-start; }
+    .phase-num {
+      background: #0f4c81; color: #fff; min-width: 18px; height: 18px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 8pt; font-weight: 700; flex-shrink: 0;
+    }
+    .phase-body strong { font-size: 8pt; color: #0f4c81; }
+    .phase-body p { font-size: 7.5pt; margin: 1px 0 0; }
+
+    .cta {
+      background: #0f4c81; color: #fff; border-radius: 4px;
+      padding: 8px 12px; margin-top: 8px; text-align: center;
+    }
+    .cta strong { font-size: 9pt; display: block; margin-bottom: 3px; }
+    .cta span { font-size: 8pt; opacity: .85; }
+
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .layer-bronze { border-top: 3px solid #cd7f32; }
+    .layer-silver { border-top: 3px solid #9ca3af; }
+    .layer-gold   { border-top: 3px solid #d4a017; }
+
+    ul.compact { padding-left: 14px; margin: 3px 0 6px; }
+    ul.compact li { font-size: 7.8pt; color: #475569; margin-bottom: 1px; }
+
+    .page-footer {
+      margin-top: 6px; padding-top: 4px; border-top: 1px solid #e2e8f0;
+      font-size: 6.5pt; color: #94a3b8;
+      display: flex; justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ COVER ══════════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-logo">PayAbbhi &nbsp;·&nbsp; Data Platform</div>
+    <div class="cover-badge">Client Presentation &nbsp;|&nbsp; v1.0 &nbsp;|&nbsp; June 2026</div>
+  </div>
+  <div class="cover-main">
+    <h1>Smart Data Platform</h1>
+    <div class="sub">Real-Time Data Lakehouse for Modern Analytics</div>
+    <div class="tagline">
+      A unified analytics platform that captures every change in your operational database
+      in near real time, stores it as governed Iceberg tables, and delivers insights through
+      SQL and self-service dashboards — without expensive proprietary warehouses or overnight batch delays.
+    </div>
+    <div class="cover-highlights">
+      <div class="cover-hl"><strong>Near-Real-Time CDC</strong><span>Data queryable within minutes, not overnight batches</span></div>
+      <div class="cover-hl"><strong>100% Open Source</strong><span>No vendor lock-in. Deploy on-prem or any cloud</span></div>
+      <div class="cover-hl"><strong>Governed Lakehouse</strong><span>ACID tables, schema evolution, audit snapshots</span></div>
+      <div class="cover-hl"><strong>Self-Service BI</strong><span>Business dashboards via Apache Superset</span></div>
+      <div class="cover-hl"><strong>Payment-Ready</strong><span>Merchants, transactions, settlements, KYC, chargebacks</span></div>
+      <div class="cover-hl"><strong>Deploy in 1 Week</strong><span>Containerized platform, first table live end-to-end</span></div>
+    </div>
+  </div>
+  <div class="cover-bottom">
+    <span>Classification: Confidential — For Client Review</span>
+    <span>Smart Data Platform &nbsp;|&nbsp; Data Lakehouse Solution</span>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE 1 ══════════════ -->
+<div class="page">
+  <div class="page-header"><span class="title">Smart Data Platform — Client Presentation</span><span class="pg">Page 1 of 5</span></div>
+
+  <h2>1. What Is This?</h2>
+  <div class="lead">
+    The <strong>Smart Data Platform</strong> is an enterprise-grade <strong>data lakehouse</strong> — a unified system that
+    combines data lake flexibility, data warehouse reliability, and streaming speed into one open-source platform.
+  </div>
+  <div class="grid-3" style="margin-bottom:7px;">
+    <div class="card"><h4>Data Lake Flexibility</h4><p>Store all data cheaply at scale on S3-compatible object storage in open Parquet format.</p></div>
+    <div class="card"><h4>Warehouse Reliability</h4><p>ACID transactions, schema evolution, and versioned snapshots via Apache Iceberg.</p></div>
+    <div class="card"><h4>Streaming Speed</h4><p>Continuous CDC — every insert, update, delete captured and queryable within minutes.</p></div>
+  </div>
+
+  <h2>2. The Challenge You Face Today</h2>
+  <div class="compare">
+    <div class="compare-bad">
+      <h4>Traditional Analytics</h4>
+      <ul>
+        <li>Reports reflect yesterday's data — decisions are stale</li>
+        <li>Weeks to add a new table or metric (full ETL project)</li>
+        <li>Expensive proprietary warehouse with rising license costs</li>
+        <li>Engineering bottleneck for every new dashboard</li>
+        <li>No audit trail when data changes or discrepancies appear</li>
+        <li>Data siloed across systems with no single source of truth</li>
+      </ul>
+    </div>
+    <div class="compare-good">
+      <h4>Smart Data Platform</h4>
+      <ul>
+        <li>Data fresh within minutes — real-time operational insight</li>
+        <li>New tables onboarded in hours via dynamic CDC connectors</li>
+        <li>100% open-source — pay only for infrastructure</li>
+        <li>Self-service dashboards in Superset for business users</li>
+        <li>Full CDC history + Iceberg point-in-time snapshots</li>
+        <li>One governed lakehouse for all teams and reports</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>3. How Does It Work?</h2>
+  <p>Every insert, update, or delete in PostgreSQL is automatically streamed into the analytical lakehouse. No batch jobs. No manual exports. No engineering intervention per report.</p>
+  <div class="pipeline">
+    <div class="pipe-step">PostgreSQL<small>Source DB</small></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step">Debezium<small>CDC Capture</small></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step">Kafka<small>Event Stream</small></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step">Iceberg<small>Lakehouse Write</small></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step">Trino<small>SQL Engine</small></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step">Superset<small>Dashboards</small></div>
+  </div>
+  <table>
+    <thead><tr><th style="width:6%">Step</th><th style="width:52%">What Happens</th><th style="width:22%">Component</th><th style="width:20%">Latency</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Business application creates or updates a record in the operational database</td><td>PostgreSQL 16</td><td>Immediate</td></tr>
+      <tr><td>2</td><td>Row-level change captured from the database Write-Ahead Log (logical replication)</td><td>Debezium CDC</td><td>Seconds</td></tr>
+      <tr><td>3</td><td>Change published as a durable, replayable event on a Kafka topic</td><td>Apache Kafka 4.1</td><td>Seconds</td></tr>
+      <tr><td>4</td><td>Event written as a versioned Parquet file; Iceberg snapshot committed to catalog</td><td>Iceberg Sink → MinIO + Nessie</td><td>Seconds–min</td></tr>
+      <tr><td>5</td><td>Analysts run SQL queries or business users view live dashboards</td><td>Trino 480 + Superset</td><td>On demand</td></tr>
+    </tbody>
+  </table>
+
+  <h2>4. Live Example — Merchant Onboarding</h2>
+  <table>
+    <thead><tr><th>Action</th><th>System Response</th><th>Verification</th></tr></thead>
+    <tbody>
+      <tr><td>App inserts new merchant into PostgreSQL</td><td>Debezium captures INSERT within seconds</td><td>Kafka UI: topic analytics.public.merchants</td></tr>
+      <tr><td>CDC event published to Kafka</td><td>Iceberg sink writes Parquet to MinIO, commits snapshot</td><td>MinIO Console: warehouse/bronze/merchants/</td></tr>
+      <tr><td>Trino query runs</td><td>New merchant row returned immediately</td><td>SELECT * FROM iceberg.bronze.merchants</td></tr>
+      <tr><td>Superset dashboard refreshes</td><td>Merchant count KPI updates automatically</td><td>Superset: Merchant Onboarding dashboard</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer"><span>Smart Data Platform · Confidential</span><span>Page 1 of 5</span></div>
+</div>
+
+<!-- ══════════════ PAGE 2 ══════════════ -->
+<div class="page">
+  <div class="page-header"><span class="title">Smart Data Platform — Architecture</span><span class="pg">Page 2 of 5</span></div>
+
+  <h2>5. Architecture Diagram</h2>
+  <div class="arch-diagram">┌─────────────────────────────────────────────────────────────────────────────┐
+│  BUSINESS APPLICATIONS  ──►  PostgreSQL 16  (Operational Database :5432)    │
+│  wal_level=logical  |  CDC-enabled  |  merchants, transactions, settlements │
+└──────────────────────────────────┬──────────────────────────────────────────┘
+                                   │  Logical Replication (WAL)
+                                   ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  INGESTION & STREAMING LAYER                                                │
+│  ┌──────────────────┐    ┌─────────────────┐    ┌────────────────────────┐  │
+│  │ Kafka Connect    │◄──►│ Apache Kafka    │    │ Kafka UI  (:8080)     │  │
+│  │ Debezium (CDC)   │    │ Event Stream    │    │ Pipeline Monitoring    │  │
+│  │ Iceberg Sink     │    │ (:9092)         │    └────────────────────────┘  │
+│  │ (:8083)          │    └─────────────────┘                               │
+│  └────────┬─────────┘                                                       │
+└───────────┼─────────────────────────────────────────────────────────────────┘
+            │  Iceberg commits + Parquet writes
+            ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  LAKEHOUSE CORE                                                             │
+│  ┌──────────────────────────┐    ┌──────────────────────────────────────┐   │
+│  │ Project Nessie (:19120)  │    │ MinIO  S3-Compatible Storage         │   │
+│  │ Versioned Iceberg Catalog│◄──►│ (:9000 API  :9001 Console)          │   │
+│  │ Branch: main             │    │ Bucket: warehouse/                   │   │
+│  └──────────────────────────┘    └──────────────────────────────────────┘   │
+│  Apache Iceberg  |  Bronze → Silver → Gold  |  Parquet columnar files        │
+└──────────────────────────────────┬──────────────────────────────────────────┘
+                                   │  SQL queries
+                                   ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  ANALYTICS & BI LAYER                                                       │
+│  Trino 480 (:8081)  ──►  Apache Superset (:8088)                           │
+│  iceberg catalog (lakehouse)  +  postgresql catalog (live source)             │
+└─────────────────────────────────────────────────────────────────────────────┘</div>
+
+  <h2>6. What Will Be Set Up For You</h2>
+  <p>We deliver a fully containerized, production-pattern platform — 9 services orchestrated via a single Docker Compose configuration, ready to run on your infrastructure.</p>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Port</th><th>Role</th><th>Who Uses It</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>PostgreSQL 16</td><td>5432</td><td>Operational database; CDC source (wal_level=logical)</td><td>Applications, Debezium</td></tr>
+      <tr><td>2</td><td>Apache Kafka 4.1</td><td>9092</td><td>Durable event streaming backbone (KRaft mode)</td><td>Connect, Kafka UI</td></tr>
+      <tr><td>3</td><td>Kafka Connect</td><td>8083</td><td>Debezium CDC source + Iceberg lakehouse sink connectors</td><td>Engineering</td></tr>
+      <tr><td>4</td><td>Kafka UI</td><td>8080</td><td>Visual monitoring of topics, messages, connector health</td><td>Operations</td></tr>
+      <tr><td>5</td><td>MinIO</td><td>9000/9001</td><td>S3-compatible object storage for all Parquet data files</td><td>Iceberg, Trino</td></tr>
+      <tr><td>6</td><td>Project Nessie 0.108</td><td>19120</td><td>Versioned Iceberg catalog — schemas, snapshots, branches</td><td>Connect, Trino</td></tr>
+      <tr><td>7</td><td>Trino 480</td><td>8081</td><td>Distributed SQL — query lakehouse and source DB together</td><td>Analysts, Superset</td></tr>
+      <tr><td>8</td><td>Apache Superset</td><td>8088</td><td>Self-service BI dashboards and ad-hoc reports</td><td>Business users</td></tr>
+      <tr><td>9</td><td>MinIO Client (mc)</td><td>—</td><td>Auto-creates warehouse storage bucket on platform startup</td><td>Automated init</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Connectors Configured</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h4>Debezium CDC Source Connector</h4>
+      <p>PostgreSQL → Kafka. Captures every INSERT, UPDATE, DELETE via logical replication. Topics: <em>analytics.public.&lt;table&gt;</em>. Initial snapshot + continuous streaming.</p>
+    </div>
+    <div class="card">
+      <h4>Iceberg Sink Connector</h4>
+      <p>Kafka → Lakehouse. Writes versioned Parquet files to MinIO, commits snapshots via Nessie. Explicit per-table or dynamic auto-create for all source tables.</p>
+    </div>
+  </div>
+
+  <h3>What You Provide</h3>
+  <div class="grid-3" style="margin-top:4px;">
+    <div class="card"><h4>Infrastructure</h4><p>Docker-capable server, 8 GB+ RAM, ports 5432, 8080–8088, 9000–9001, 9092, 19120</p></div>
+    <div class="card"><h4>Runtime</h4><p>Docker and Docker Compose installed on the host</p></div>
+    <div class="card"><h4>Source Data</h4><p>PostgreSQL tables in the public schema (merchants, transactions, etc.)</p></div>
+  </div>
+
+  <div class="page-footer"><span>Smart Data Platform · Confidential</span><span>Page 2 of 5</span></div>
+</div>
+
+<!-- ══════════════ PAGE 3 ══════════════ -->
+<div class="page">
+  <div class="page-header"><span class="title">Smart Data Platform — Advantages &amp; Use Cases</span><span class="pg">Page 3 of 5</span></div>
+
+  <h2>7. Advantages You Will Get</h2>
+  <div class="grid-2" style="margin-bottom:7px;">
+    <div class="benefit"><strong>Near-Real-Time Insights</strong><span>Decisions based on minutes-old data, not yesterday's batch report. GMV, success rates, and settlement status always current.</span></div>
+    <div class="benefit"><strong>Single Source of Truth</strong><span>One governed Iceberg dataset for all teams, reports, and dashboards. No conflicting numbers across departments.</span></div>
+    <div class="benefit"><strong>Lower Total Cost of Ownership</strong><span>100% open-source stack. No per-query, per-seat, or proprietary warehouse licensing fees. Pay only for infrastructure.</span></div>
+    <div class="benefit"><strong>No Vendor Lock-In</strong><span>Deploy on-premises, AWS, Azure, or GCP. MinIO maps directly to S3. Same architecture everywhere.</span></div>
+    <div class="benefit"><strong>Self-Service Analytics</strong><span>Business users build and refresh dashboards in Superset without submitting engineering tickets or waiting for ETL.</span></div>
+    <div class="benefit"><strong>Audit &amp; Compliance Ready</strong><span>Full CDC change history in Kafka. Iceberg point-in-time snapshots for regulatory reporting and dispute resolution.</span></div>
+    <div class="benefit"><strong>Faster Time-to-Market</strong><span>Add a new PostgreSQL table and the pipeline auto-follows (dynamic connector). Hours, not weeks.</span></div>
+    <div class="benefit"><strong>Industry-Proven Architecture</strong><span>Same lakehouse patterns used by Netflix, Uber, Airbnb, Stripe, and Apple. Enterprise-grade from day one.</span></div>
+  </div>
+
+  <h2>8. Data Organization — Medallion Architecture</h2>
+  <div class="grid-3" style="margin-bottom:7px;">
+    <div class="card layer-bronze">
+      <h4>Bronze — Raw Landing</h4>
+      <p>As-is CDC replication from source. Full insert/update/delete history. Auto-populated by the pipeline — zero manual ETL.</p>
+      <p style="margin-top:3px;"><em>merchants, transactions, settlements, chargebacks, kyc_documents</em></p>
+    </div>
+    <div class="card layer-silver">
+      <h4>Silver — Cleansed &amp; Conformed</h4>
+      <p>Deduplicated, validated business entities. Standardized schemas. Quality rules applied. Ready for analytics.</p>
+      <p style="margin-top:3px;"><em>payments, merchant_risk, clean_settlements</em></p>
+    </div>
+    <div class="card layer-gold">
+      <h4>Gold — Business Metrics</h4>
+      <p>Executive KPIs and aggregates. Regulatory reporting tables. Optimized for dashboard performance.</p>
+      <p style="margin-top:3px;"><em>daily_gmv, payment_success_rate, settlement_summary</em></p>
+    </div>
+  </div>
+
+  <h2>9. Use Cases for Your Payment Platform</h2>
+  <table>
+    <thead><tr><th>Business Use Case</th><th>Source Tables</th><th>Outcome / Dashboard</th><th>Layer</th></tr></thead>
+    <tbody>
+      <tr><td>Merchant onboarding funnel</td><td>merchants, kyc_documents</td><td>Live onboarding completion rate by stage</td><td>Bronze → Gold</td></tr>
+      <tr><td>Payment success monitoring</td><td>transactions</td><td>Real-time success/failure rate by gateway and merchant</td><td>Bronze → Gold</td></tr>
+      <tr><td>Settlement reconciliation</td><td>settlements, transactions</td><td>T+1 settlement accuracy and exception alerts</td><td>Silver → Gold</td></tr>
+      <tr><td>Chargeback analysis</td><td>chargebacks, merchants</td><td>Chargeback ratio alerts by merchant and category</td><td>Silver → Gold</td></tr>
+      <tr><td>Executive KPI dashboard</td><td>Gold layer aggregates</td><td>Daily GMV, active merchants, revenue trends</td><td>Gold</td></tr>
+      <tr><td>Regulatory &amp; audit reporting</td><td>All domains</td><td>Point-in-time data snapshots for compliance</td><td>All layers</td></tr>
+      <tr><td>Fraud &amp; risk scoring feed</td><td>transactions, merchant_risk</td><td>Governed datasets for ML model training</td><td>Silver</td></tr>
+    </tbody>
+  </table>
+
+  <h2>10. Technology Stack — Enterprise Credibility</h2>
+  <table>
+    <thead><tr><th>Category</th><th>Technology</th><th>Version</th><th>Adopted By</th><th>License</th></tr></thead>
+    <tbody>
+      <tr><td>Database</td><td>PostgreSQL</td><td>16</td><td>Apple, Instagram, Spotify</td><td>Open</td></tr>
+      <tr><td>Event Streaming</td><td>Apache Kafka</td><td>4.1</td><td>LinkedIn, Netflix, Uber</td><td>Apache 2.0</td></tr>
+      <tr><td>CDC</td><td>Debezium</td><td>2.7</td><td>Red Hat, Zalando, Airbnb</td><td>Apache 2.0</td></tr>
+      <tr><td>Table Format</td><td>Apache Iceberg</td><td>1.x</td><td>Apple, Netflix, Adobe</td><td>Apache 2.0</td></tr>
+      <tr><td>Data Catalog</td><td>Project Nessie</td><td>0.108</td><td>Apache Iceberg ecosystem</td><td>Apache 2.0</td></tr>
+      <tr><td>Object Storage</td><td>MinIO</td><td>Latest</td><td>Siemens, Adobe (S3-compatible)</td><td>AGPL v3</td></tr>
+      <tr><td>SQL Engine</td><td>Trino</td><td>480</td><td>Meta, Twitter, Comcast</td><td>Apache 2.0</td></tr>
+      <tr><td>Business Intelligence</td><td>Apache Superset</td><td>Latest</td><td>Airbnb, Lyft, Dropbox</td><td>Apache 2.0</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer"><span>Smart Data Platform · Confidential</span><span>Page 3 of 5</span></div>
+</div>
+
+<!-- ══════════════ PAGE 4 ══════════════ -->
+<div class="page">
+  <div class="page-header"><span class="title">Smart Data Platform — Roadmap &amp; Security</span><span class="pg">Page 4 of 5</span></div>
+
+  <h2>11. Implementation Roadmap</h2>
+  <div class="phase-row"><div class="phase-num">1</div><div class="phase-body"><strong>Foundation — Week 1</strong><p>Deploy all 9 services via Docker Compose. Configure Debezium CDC and Iceberg sink connectors. Verify first table (merchants) flowing end-to-end: PostgreSQL → Kafka → Iceberg → Trino → Superset.</p></div></div>
+  <div class="phase-row"><div class="phase-num">2</div><div class="phase-body"><strong>Core Domains — Weeks 2–3</strong><p>Onboard transactions, settlements, chargebacks, and KYC tables. Complete Bronze layer. Build operational dashboards in Superset for payments and merchant monitoring.</p></div></div>
+  <div class="phase-row"><div class="phase-num">3</div><div class="phase-body"><strong>Analytics Maturity — Weeks 4–6</strong><p>Build Silver (cleansed entities) and Gold (KPI aggregates) layers via Trino SQL. Deliver executive dashboards: daily GMV, payment success rate, settlement summary, merchant onboarding funnel.</p></div></div>
+  <div class="phase-row"><div class="phase-num">4</div><div class="phase-body"><strong>Production Hardening — Weeks 7–10</strong><p>Enable TLS, SSO/LDAP, secrets vault. Migrate storage to cloud S3. Deploy on Kubernetes with high availability. Implement Prometheus + Grafana monitoring and alerting.</p></div></div>
+
+  <table style="margin-top:6px;">
+    <thead><tr><th>Phase</th><th>Duration</th><th>Key Deliverable</th><th>Success Criteria</th></tr></thead>
+    <tbody>
+      <tr><td>1 — Foundation</td><td>~1 week</td><td>Platform live; first table end-to-end</td><td>INSERT in Postgres appears in Superset dashboard</td></tr>
+      <tr><td>2 — Core Domains</td><td>~2 weeks</td><td>5 domain tables in Bronze; ops dashboards</td><td>All payment tables streaming; 3+ dashboards live</td></tr>
+      <tr><td>3 — Analytics Maturity</td><td>~3 weeks</td><td>Silver/Gold layers; executive KPIs</td><td>Leadership dashboard with daily GMV and success rate</td></tr>
+      <tr><td>4 — Production</td><td>~4 weeks</td><td>Security, cloud, HA, monitoring</td><td>Pen-test passed; 99.9% uptime SLA met</td></tr>
+    </tbody>
+  </table>
+
+  <h2>12. Security &amp; Governance</h2>
+  <div class="cols">
+    <div>
+      <h3>Built-In Governance</h3>
+      <ul class="compact">
+        <li>Immutable CDC event log — every change recorded in Kafka</li>
+        <li>Iceberg table versioning — query data at any historical point</li>
+        <li>Nessie catalog branches — isolate dev, test, and production data</li>
+        <li>Schema evolution tracking — audit all structural changes</li>
+        <li>Role-based access via Trino and Superset (production)</li>
+      </ul>
+      <h3>Production Security Roadmap</h3>
+      <table>
+        <thead><tr><th>Area</th><th>Enhancement</th></tr></thead>
+        <tbody>
+          <tr><td>Encryption</td><td>TLS on Kafka, Trino, Nessie, Connect</td></tr>
+          <tr><td>Authentication</td><td>SSO / LDAP for Trino and Superset</td></tr>
+          <tr><td>Secrets</td><td>HashiCorp Vault or cloud secrets manager</td></tr>
+          <tr><td>Network</td><td>Private subnets; restricted inter-service traffic</td></tr>
+          <tr><td>Audit</td><td>Centralized logging for all data access events</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3>Scalability — POC to Production</h3>
+      <table>
+        <thead><tr><th>Component</th><th>POC (Day 1)</th><th>Production</th></tr></thead>
+        <tbody>
+          <tr><td>Kafka</td><td>1 node (KRaft)</td><td>Multi-broker cluster, RF ≥ 3</td></tr>
+          <tr><td>Object Storage</td><td>MinIO (single node)</td><td>AWS S3 / Azure Data Lake / GCS</td></tr>
+          <tr><td>Catalog</td><td>Nessie (in-memory)</td><td>Nessie with persistent JDBC backend</td></tr>
+          <tr><td>SQL Engine</td><td>1 Trino coordinator</td><td>Trino cluster with dedicated workers</td></tr>
+          <tr><td>Connect</td><td>1 Connect worker</td><td>Horizontally scaled Connect cluster</td></tr>
+          <tr><td>Orchestration</td><td>Docker Compose</td><td>Kubernetes with auto-scaling</td></tr>
+          <tr><td>Monitoring</td><td>Kafka UI</td><td>Prometheus + Grafana + PagerDuty</td></tr>
+        </tbody>
+      </table>
+      <h3>Deliverables You Receive</h3>
+      <ul class="compact">
+        <li>Running 9-service platform (Docker Compose)</li>
+        <li>CDC + Iceberg connector configurations (ready to register)</li>
+        <li>Trino catalogs: iceberg (lakehouse) + postgresql (source)</li>
+        <li>Superset with Trino integration pre-configured</li>
+        <li>Kafka UI for pipeline observability</li>
+        <li>Architecture documentation and setup runbook</li>
+        <li>Bronze / Silver / Gold schema structure in Trino</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Smart Data Platform · Confidential</span><span>Page 4 of 5</span></div>
+</div>
+
+<!-- ══════════════ PAGE 5 ══════════════ -->
+<div class="page">
+  <div class="page-header"><span class="title">Smart Data Platform — Next Steps</span><span class="pg">Page 5 of 5</span></div>
+
+  <h2>13. Before vs After — Summary</h2>
+  <table>
+    <thead><tr><th>Dimension</th><th>Before (Traditional)</th><th>After (Smart Data Platform)</th><th>Business Impact</th></tr></thead>
+    <tbody>
+      <tr><td>Data freshness</td><td>Hours to 24+ hours</td><td>Minutes</td><td>Faster decisions, reduced risk exposure</td></tr>
+      <tr><td>Add new data source</td><td>Days to weeks</td><td>Hours (add table + auto-connector)</td><td>Accelerated product analytics</td></tr>
+      <tr><td>Analytics cost</td><td>High license + infra</td><td>Open-source infra only</td><td>60–80% cost reduction potential</td></tr>
+      <tr><td>Vendor dependency</td><td>High (proprietary DW)</td><td>None (portable to any cloud)</td><td>Negotiating leverage; no lock-in</td></tr>
+      <tr><td>Audit capability</td><td>Limited / manual</td><td>Full CDC + Iceberg snapshots</td><td>Regulatory compliance confidence</td></tr>
+      <tr><td>Self-service BI</td><td>Engineering bottleneck</td><td>Native Superset dashboards</td><td>Business team autonomy</td></tr>
+      <tr><td>Schema changes</td><td>Break pipelines</td><td>Iceberg schema evolution</td><td>Zero-downtime schema updates</td></tr>
+      <tr><td>Disaster recovery</td><td>Complex backup/restore</td><td>Kafka replay + immutable storage</td><td>Faster recovery; no data loss</td></tr>
+    </tbody>
+  </table>
+
+  <h2>14. Access URLs After Deployment</h2>
+  <table>
+    <thead><tr><th>Tool</th><th>URL</th><th>Primary Users</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Apache Superset</td><td>http://localhost:8088</td><td>Business users, leadership</td><td>Dashboards, charts, ad-hoc reports</td></tr>
+      <tr><td>Trino SQL</td><td>http://localhost:8081</td><td>Data analysts, engineers</td><td>SQL queries over lakehouse and source DB</td></tr>
+      <tr><td>Kafka UI</td><td>http://localhost:8080</td><td>Operations, engineering</td><td>Monitor topics, connectors, pipeline health</td></tr>
+      <tr><td>MinIO Console</td><td>http://localhost:9001</td><td>Engineering</td><td>Inspect Parquet files and storage usage</td></tr>
+      <tr><td>Kafka Connect API</td><td>http://localhost:8083</td><td>Engineering</td><td>Register and manage CDC/sink connectors</td></tr>
+      <tr><td>PostgreSQL</td><td>localhost:5432</td><td>Applications</td><td>Operational database (source of truth)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>15. Next Steps</h2>
+  <table>
+    <thead><tr><th style="width:6%">#</th><th style="width:44%">Action</th><th style="width:22%">Owner</th><th style="width:28%">Target</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Review this document with business and technical stakeholders</td><td>Joint session</td><td>Week 0</td></tr>
+      <tr><td>2</td><td>Confirm priority data domains and source tables (merchants, transactions, etc.)</td><td>Client business team</td><td>Week 0</td></tr>
+      <tr><td>3</td><td>Provision Docker host (8 GB+ RAM, required ports open)</td><td>Client infrastructure</td><td>Week 0</td></tr>
+      <tr><td>4</td><td>Deploy platform and register CDC + Iceberg connectors</td><td>Delivery team</td><td>Week 1</td></tr>
+      <tr><td>5</td><td>Joint end-to-end verification — live merchant insert → dashboard</td><td>Joint session</td><td>Week 1</td></tr>
+      <tr><td>6</td><td>Onboard core payment domain tables (Phase 2)</td><td>Delivery team</td><td>Weeks 2–3</td></tr>
+      <tr><td>7</td><td>Build executive KPI dashboards in Superset (Phase 3)</td><td>Delivery + client analysts</td><td>Weeks 4–6</td></tr>
+      <tr><td>8</td><td>Plan production hardening — security, cloud, HA (Phase 4)</td><td>Joint planning</td><td>Week 7+</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cta">
+    <strong>Ready to transform your analytics?</strong>
+    <span>The Smart Data Platform can be deployed and verified with your first live data table within one week.<br/>
+    Contact the delivery team to schedule a joint kick-off session.</span>
+  </div>
+
+  <h2 style="margin-top:10px;">Glossary</h2>
+  <table>
+    <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+    <tbody>
+      <tr><td>CDC</td><td>Change Data Capture — detects and streams row-level database changes in real time</td></tr>
+      <tr><td>Lakehouse</td><td>Architecture combining data lake storage flexibility with data warehouse governance</td></tr>
+      <tr><td>Apache Iceberg</td><td>Open table format providing ACID transactions, schema evolution, and time travel</td></tr>
+      <tr><td>Project Nessie</td><td>Git-like catalog for Iceberg tables with branch, tag, and snapshot semantics</td></tr>
+      <tr><td>Medallion Architecture</td><td>Data layering: Bronze (raw) → Silver (cleansed) → Gold (business metrics)</td></tr>
+      <tr><td>Trino</td><td>High-performance distributed SQL query engine for lakehouse and federated queries</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer"><span>Smart Data Platform · Data Lakehouse Solution · Confidential · June 2026</span><span>Page 5 of 5</span></div>
+</div>
+
+</body>
+</html>

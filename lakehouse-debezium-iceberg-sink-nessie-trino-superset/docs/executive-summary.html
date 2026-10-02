@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Data Platform — Executive Summary</title>
+  <style>
+    @page { size: A4; margin: 18mm 16mm; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", Calibri, Arial, sans-serif;
+      color: #1a2332;
+      font-size: 10pt;
+      line-height: 1.45;
+      background: #fff;
+      max-width: 210mm;
+      margin: 0 auto;
+      padding: 18mm 16mm;
+    }
+    .header {
+      border-bottom: 3px solid #0f4c81;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .brand { font-size: 22pt; font-weight: 700; color: #0f4c81; letter-spacing: -0.5px; }
+    .subtitle { font-size: 11pt; color: #4a5568; margin-top: 4px; font-weight: 500; }
+    .meta { text-align: right; font-size: 8.5pt; color: #64748b; line-height: 1.6; }
+    .meta strong { color: #334155; }
+    h2 {
+      font-size: 11pt;
+      color: #0f4c81;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin: 16px 0 8px;
+      border-left: 4px solid #0f4c81;
+      padding-left: 8px;
+    }
+    p { margin-bottom: 8px; color: #334155; }
+    .lead {
+      font-size: 10.5pt;
+      color: #1e293b;
+      background: #f0f7ff;
+      border: 1px solid #cfe3f5;
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .card {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 12px;
+      background: #fafbfc;
+    }
+    .card h3 { font-size: 9.5pt; color: #0f4c81; margin-bottom: 6px; }
+    .card ul { padding-left: 16px; font-size: 9pt; color: #475569; }
+    .card li { margin-bottom: 3px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.5pt;
+      margin-top: 6px;
+    }
+    th {
+      background: #0f4c81;
+      color: #fff;
+      text-align: left;
+      padding: 6px 8px;
+      font-weight: 600;
+    }
+    td {
+      border-bottom: 1px solid #e2e8f0;
+      padding: 5px 8px;
+      vertical-align: top;
+      color: #334155;
+    }
+    tr:nth-child(even) td { background: #f8fafc; }
+    .flow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin: 10px 0;
+      font-size: 8pt;
+    }
+    .flow-step {
+      background: #0f4c81;
+      color: #fff;
+      padding: 6px 8px;
+      border-radius: 4px;
+      text-align: center;
+      flex: 1;
+      min-width: 70px;
+    }
+    .flow-arrow { color: #94a3b8; font-weight: bold; font-size: 10pt; }
+    .outcomes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .outcome {
+      background: #fff;
+      border: 1px solid #dbeafe;
+      border-left: 4px solid #2563eb;
+      padding: 8px 10px;
+      border-radius: 4px;
+    }
+    .outcome strong { display: block; font-size: 9pt; color: #1e40af; margin-bottom: 2px; }
+    .outcome span { font-size: 8.5pt; color: #475569; }
+    .footer {
+      margin-top: 16px;
+      padding-top: 10px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 7.5pt;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+    }
+    @media print {
+      body { padding: 0; }
+      .card, .lead { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-top">
+      <div>
+        <div class="brand">Smart Data Platform</div>
+        <div class="subtitle">Data Lakehouse — Executive Summary</div>
+      </div>
+      <div class="meta">
+        <strong>Version</strong> 1.0<br />
+        <strong>Date</strong> June 2026<br />
+        <strong>Classification</strong> Client Presentation
+      </div>
+    </div>
+  </header>
+
+  <div class="lead">
+    The Smart Data Platform is a modern <strong>data lakehouse</strong> that unifies operational and analytical workloads.
+    It captures database changes in near real time, stores them as governed Iceberg tables on object storage,
+    and delivers insights through standard SQL and self-service dashboards — built entirely on open-source,
+    enterprise-grade technology.
+  </div>
+
+  <h2>Business Value</h2>
+  <div class="outcomes">
+    <div class="outcome">
+      <strong>Near-Real-Time Analytics</strong>
+      <span>Operational data becomes queryable within minutes, eliminating overnight batch delays.</span>
+    </div>
+    <div class="outcome">
+      <strong>Single Source of Truth</strong>
+      <span>Versioned Iceberg tables provide consistent, auditable datasets for all reporting.</span>
+    </div>
+    <div class="outcome">
+      <strong>Lower Integration Cost</strong>
+      <span>Standard SQL (Trino) and BI (Superset) reduce dependency on specialized skills.</span>
+    </div>
+    <div class="outcome">
+      <strong>Future-Ready Foundation</strong>
+      <span>New domains — payments, settlements, KYC — onboard without architectural redesign.</span>
+    </div>
+  </div>
+
+  <h2>Solution Overview</h2>
+  <p>
+    The platform replaces traditional batch ETL with <strong>Change Data Capture (CDC)</strong>.
+    Every insert, update, and delete in PostgreSQL is streamed through Kafka, materialized as
+    <strong>Apache Iceberg</strong> tables, and made available for analytics — with full schema evolution,
+    time travel, and ACID guarantees.
+  </p>
+
+  <div class="flow">
+    <div class="flow-step">PostgreSQL<br/><small>Source</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step">Debezium<br/><small>CDC</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step">Kafka<br/><small>Streaming</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step">Iceberg<br/><small>Lakehouse</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step">Trino<br/><small>SQL</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step">Superset<br/><small>Dashboards</small></div>
+  </div>
+
+  <div class="grid-2" style="margin-top: 12px;">
+    <div>
+      <h2>Architecture Layers</h2>
+      <table>
+        <thead>
+          <tr><th>Layer</th><th>Technology</th><th>Role</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Source</td><td>PostgreSQL 16</td><td>Operational database &amp; CDC origin</td></tr>
+          <tr><td>Streaming</td><td>Apache Kafka 4.1</td><td>Durable event backbone</td></tr>
+          <tr><td>Ingestion</td><td>Debezium + Iceberg Connect</td><td>CDC capture &amp; lakehouse writes</td></tr>
+          <tr><td>Storage</td><td>MinIO (S3-compatible)</td><td>Columnar data files (Parquet)</td></tr>
+          <tr><td>Catalog</td><td>Project Nessie</td><td>Versioned table metadata</td></tr>
+          <tr><td>Compute</td><td>Trino 480</td><td>Distributed SQL engine</td></tr>
+          <tr><td>BI</td><td>Apache Superset</td><td>Self-service dashboards</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h2>Medallion Data Layers</h2>
+      <div class="card" style="margin-bottom: 8px;">
+        <h3>Bronze — Raw Landing</h3>
+        <ul>
+          <li>As-is CDC replication from source systems</li>
+          <li>Full change history (inserts, updates, deletes)</li>
+          <li>Examples: merchants, transactions, settlements</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-bottom: 8px;">
+        <h3>Silver — Cleansed &amp; Conformed</h3>
+        <ul>
+          <li>Deduplicated, validated business entities</li>
+          <li>Standardized schemas across domains</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Gold — Business Metrics</h3>
+        <ul>
+          <li>KPIs: daily GMV, success rates, settlement summaries</li>
+          <li>Regulatory and executive reporting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h2>Key Differentiators</h2>
+  <div class="grid-3">
+    <div class="card">
+      <h3>Open &amp; Portable</h3>
+      <ul>
+        <li>100% open-source stack</li>
+        <li>No vendor lock-in</li>
+        <li>Maps to AWS S3, Azure, GCP in production</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Governed &amp; Auditable</h3>
+      <ul>
+        <li>Iceberg snapshots enable time travel</li>
+        <li>Nessie catalog with version branches</li>
+        <li>Immutable event log in Kafka</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Scalable by Design</h3>
+      <ul>
+        <li>Storage and compute scale independently</li>
+        <li>Containerized, Kubernetes-ready</li>
+        <li>Clear POC-to-production path</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Production Evolution Path</h2>
+  <table>
+    <thead>
+      <tr><th>Component</th><th>Current (POC)</th><th>Production Target</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Kafka</td><td>Single node</td><td>Multi-broker cluster (RF ≥ 3)</td></tr>
+      <tr><td>Object Storage</td><td>MinIO</td><td>AWS S3 / Azure Data Lake / GCS</td></tr>
+      <tr><td>Catalog</td><td>Nessie (in-memory)</td><td>Nessie with persistent backend</td></tr>
+      <tr><td>Query Engine</td><td>Single Trino node</td><td>Trino cluster with workers</td></tr>
+      <tr><td>Security</td><td>Development defaults</td><td>TLS, SSO, IAM, secrets vault</td></tr>
+      <tr><td>Orchestration</td><td>Docker Compose</td><td>Kubernetes with auto-scaling</td></tr>
+    </tbody>
+  </table>
+
+  <footer class="footer">
+    <span>Smart Data Platform · Data Lakehouse Architecture · Confidential</span>
+    <span>Full technical reference: ARCHITECTURE.md</span>
+  </footer>
+
+</body>
+</html>
